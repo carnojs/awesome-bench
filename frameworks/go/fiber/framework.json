@@ -1,0 +1,6 @@
+{
+  "id": "go-fiber",
+  "language": "go",
+  "framework": "fiber",
+  "contract_version": 1
+}

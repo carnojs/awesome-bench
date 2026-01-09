@@ -1,0 +1,6 @@
+{
+  "id": "go-net-http",
+  "language": "go",
+  "framework": "net/http",
+  "contract_version": 1
+}

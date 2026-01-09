@@ -1,0 +1,8 @@
+{
+  "name": "benchhub-fastify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "fastify": "^5.0.0"
+  }
+}

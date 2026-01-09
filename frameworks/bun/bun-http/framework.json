@@ -1,0 +1,6 @@
+{
+  "id": "bun-http",
+  "language": "bun",
+  "framework": "Bun.serve",
+  "contract_version": 1
+}

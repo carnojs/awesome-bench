@@ -1,0 +1,6 @@
+{
+  "id": "js-fastify",
+  "language": "javascript",
+  "framework": "fastify",
+  "contract_version": 1
+}

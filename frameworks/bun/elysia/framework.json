@@ -1,0 +1,6 @@
+{
+  "id": "bun-elysia",
+  "language": "bun",
+  "framework": "elysia",
+  "contract_version": 1
+}

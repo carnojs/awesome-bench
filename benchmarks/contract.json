@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "server": {
+    "port": 8080,
+    "health": {
+      "method": "GET",
+      "path": "/health",
+      "expect_status": 200
+    }
+  },
+  "routes": [
+    {
+      "id": "plaintext",
+      "method": "GET",
+      "path": "/plaintext",
+      "expect_status": 200,
+      "headers": {
+        "content-type": "text/plain; charset=utf-8"
+      },
+      "response": {
+        "type": "text",
+        "body": "OK"
+      }
+    },
+    {
+      "id": "json",
+      "method": "GET",
+      "path": "/json",
+      "expect_status": 200,
+      "headers": {
+        "content-type": "application/json; charset=utf-8"
+      },
+      "response": {
+        "type": "json",
+        "body": {
+          "message": "OK"
+        }
+      }
+    }
+  ]
+}

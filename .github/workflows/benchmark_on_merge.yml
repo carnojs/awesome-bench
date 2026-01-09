@@ -1,0 +1,118 @@
+name: Benchmark on Merge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "frameworks/**"
+
+concurrency:
+  group: benchmark-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frameworks: ${{ steps.detect.outputs.frameworks }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed frameworks
+        id: detect
+        run: |
+          BEFORE=${{ github.event.before }}
+          AFTER=${{ github.sha }}
+
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            CHANGED_FILES=$(git ls-files 'frameworks/**')
+          else
+            CHANGED_FILES=$(git diff --name-only $BEFORE $AFTER -- 'frameworks/**')
+          fi
+
+          FRAMEWORKS=$(echo "$CHANGED_FILES" | grep -oP 'frameworks/[^/]+/[^/]+' | sort -u | while read fw; do
+            if [ -f "$fw/framework.json" ]; then
+              echo "$fw"
+            fi
+          done)
+
+          if [ -z "$FRAMEWORKS" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "frameworks=[]" >> $GITHUB_OUTPUT
+          else
+            JSON_ARRAY=$(echo "$FRAMEWORKS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "frameworks=$JSON_ARRAY" >> $GITHUB_OUTPUT
+            echo "Changed frameworks: $JSON_ARRAY"
+          fi
+
+  benchmark:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: ${{ fromJson(needs.detect-changes.outputs.frameworks) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install oha
+        run: |
+          curl -sSfL https://github.com/hatoo/oha/releases/download/v1.4.6/oha-linux-amd64 -o /usr/local/bin/oha
+          chmod +x /usr/local/bin/oha
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Make scripts executable
+        run: chmod +x runner/*.sh
+
+      - name: Run benchmark
+        run: ./runner/run_framework.sh ${{ matrix.framework }}
+
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: results-${{ hashFiles(format('{0}/framework.json', matrix.framework)) }}
+          path: results/frameworks/
+          retention-days: 1
+
+  aggregate:
+    needs: benchmark
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all results
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded-results
+          pattern: results-*
+          merge-multiple: true
+
+      - name: Merge results
+        run: |
+          mkdir -p results/frameworks
+          if [ -d "downloaded-results" ]; then
+            cp -r downloaded-results/* results/frameworks/ 2>/dev/null || true
+          fi
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Aggregate results
+        run: bun run runner/aggregate_results.ts
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add results/
+          git diff --staged --quiet || git commit -m "Update benchmark results [skip ci]"
+          git push
