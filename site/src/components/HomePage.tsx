@@ -62,8 +62,8 @@ export default function HomePage() {
         });
 
         const results = (await Promise.all(frameworkPromises)).filter(
-          (r): r is FrameworkData => r !== null
-        );
+          (r) => r !== null
+        ) as FrameworkData[];
         setFrameworks(results);
       } catch {
         setError("Failed to load benchmark data.");
