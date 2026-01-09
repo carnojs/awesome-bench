@@ -2,5 +2,6 @@
   "id": "bun-http",
   "language": "bun",
   "framework": "Bun.serve",
+  "url": "https://bun.sh/docs/api/http",
   "contract_version": 1
 }

@@ -27,6 +27,7 @@ This file contains metadata about your framework:
   "id": "<language>-<framework>",
   "language": "<language>",
   "framework": "<framework-name>",
+  "url": "https://github.com/...",
   "contract_version": 1
 }
 ```
@@ -34,6 +35,7 @@ This file contains metadata about your framework:
 - `id`: Unique identifier (lowercase, hyphen-separated)
 - `language`: Programming language (e.g., "go", "javascript", "bun", "rust")
 - `framework`: Framework name as it should appear on the site
+- `url`: Link to the framework's documentation or GitHub repository
 - `contract_version`: Must match the current version in `benchmarks/contract.json`
 
 ### 3. Implement the Routes

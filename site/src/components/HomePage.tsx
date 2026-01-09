@@ -16,6 +16,7 @@ interface FrameworkData {
   id: string;
   framework: string;
   language: string;
+  url?: string;
   plaintext_rps: number;
   plaintext_p95: number;
   json_rps: number;
@@ -51,6 +52,7 @@ export default function HomePage() {
             id: entry.id,
             framework: result.framework,
             language: result.language,
+            url: result.url,
             plaintext_rps: result.benchmarks.plaintext?.requests_per_sec ?? 0,
             plaintext_p95: result.benchmarks.plaintext?.latency_ms.p95 ?? 0,
             json_rps: result.benchmarks.json?.requests_per_sec ?? 0,
@@ -206,12 +208,27 @@ export default function HomePage() {
                   className="hover:bg-[var(--bg-secondary)] transition-colors"
                 >
                   <td className="px-4 py-4">
-                    <Link
-                      to={`/framework/${fw.id}`}
-                      className="font-medium text-[var(--accent)] hover:underline"
-                    >
-                      {fw.framework}
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        to={`/framework/${fw.id}`}
+                        className="font-medium text-[var(--accent)] hover:underline"
+                      >
+                        {fw.framework}
+                      </Link>
+                      {fw.url && (
+                        <a
+                          href={fw.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                          title="View documentation"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      )}
+                    </div>
                   </td>
                   <td className="px-4 py-4">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--bg-secondary)] border border-[var(--border-color)]">

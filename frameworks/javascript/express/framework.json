@@ -2,5 +2,6 @@
   "id": "js-express",
   "language": "javascript",
   "framework": "express",
+  "url": "https://github.com/expressjs/express",
   "contract_version": 1
 }

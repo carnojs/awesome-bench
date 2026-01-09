@@ -2,5 +2,6 @@
   "id": "go-fiber",
   "language": "go",
   "framework": "fiber",
+  "url": "https://github.com/gofiber/fiber",
   "contract_version": 1
 }

@@ -2,5 +2,6 @@
   "id": "go-net-http",
   "language": "go",
   "framework": "net/http",
+  "url": "https://pkg.go.dev/net/http",
   "contract_version": 1
 }

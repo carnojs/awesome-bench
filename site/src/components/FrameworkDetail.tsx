@@ -93,6 +93,19 @@ export default function FrameworkDetail() {
           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-[var(--bg-secondary)] border border-[var(--border-color)]">
             {result.language}
           </span>
+          {result.url && (
+            <a
+              href={result.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium bg-[var(--accent)]/10 text-[var(--accent)] hover:bg-[var(--accent)]/20 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              Documentation
+            </a>
+          )}
         </div>
         <p className="text-[var(--text-secondary)]">
           Last measured: {formatDate(result.measured_at)}

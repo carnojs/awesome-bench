@@ -21,6 +21,7 @@ export interface FrameworkResult {
   framework_id: string;
   language: string;
   framework: string;
+  url?: string;
   measured_at: string;
   contract_version: number;
   runner_version: string;
@@ -32,6 +33,7 @@ export interface IndexEntry {
   id: string;
   language: string;
   framework: string;
+  url?: string;
   measured_at: string;
   latest: string;
 }

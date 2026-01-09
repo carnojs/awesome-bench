@@ -2,5 +2,6 @@
   "id": "js-fastify",
   "language": "javascript",
   "framework": "fastify",
+  "url": "https://github.com/fastify/fastify",
   "contract_version": 1
 }

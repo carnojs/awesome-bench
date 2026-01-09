@@ -30,6 +30,7 @@ fi
 FRAMEWORK_ID=$(jq -r '.id' "$FRAMEWORK_PATH/framework.json")
 FRAMEWORK_LANGUAGE=$(jq -r '.language' "$FRAMEWORK_PATH/framework.json")
 FRAMEWORK_NAME=$(jq -r '.framework' "$FRAMEWORK_PATH/framework.json")
+FRAMEWORK_URL=$(jq -r '.url // ""' "$FRAMEWORK_PATH/framework.json")
 CONTRACT_VERSION=$(jq -r '.contract_version' "$FRAMEWORK_PATH/framework.json")
 
 echo "========================================"
@@ -124,6 +125,7 @@ SNAPSHOT=$(cat << EOF
   "framework_id": "$FRAMEWORK_ID",
   "language": "$FRAMEWORK_LANGUAGE",
   "framework": "$FRAMEWORK_NAME",
+  "url": "$FRAMEWORK_URL",
   "measured_at": "$TIMESTAMP",
   "contract_version": $CONTRACT_VERSION,
   "runner_version": "1.0.0",
