@@ -1,0 +1,36 @@
+{
+  "framework_id": "bun-http",
+  "language": "bun",
+  "framework": "Bun.serve",
+  "url": "https://bun.sh/docs/api/http",
+  "measured_at": "2026-01-09T22:51:24Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 40405.38548134106,
+      "latency_ms": {
+        "p50": 1.421004,
+        "p95": 2.7308060000000003,
+        "p99": 3.2024779999999997
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 35811.03609205962,
+      "latency_ms": {
+        "p50": 1.648026,
+        "p95": 3.129435,
+        "p99": 4.217426
+      },
+      "errors": 0
+    }
+  }
+}
