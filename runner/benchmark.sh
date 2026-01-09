@@ -20,11 +20,37 @@ oha -z "$WARMUP_DURATION" -c "$CONNECTIONS" --no-tui -q "$URL" > /dev/null 2>&1 
 echo "Running benchmark for $DURATION with $CONNECTIONS connections..."
 oha -z "$DURATION" -c "$CONNECTIONS" --no-tui -j "$URL" > "$OUTPUT_FILE"
 
-rps=$(jq '.summary.requestsPerSec' "$OUTPUT_FILE")
-p50=$(jq '.latencyPercentiles.p50 * 1000' "$OUTPUT_FILE")
-p95=$(jq '.latencyPercentiles.p95 * 1000' "$OUTPUT_FILE")
-p99=$(jq '.latencyPercentiles.p99 * 1000' "$OUTPUT_FILE")
-errors=$(jq '.summary.errorDistribution | to_entries | map(.value) | add // 0' "$OUTPUT_FILE")
+echo "Parsing results..."
+
+rps=$(jq '.summary.requestsPerSec // 0' "$OUTPUT_FILE")
+
+p50=$(jq '
+  .latencyDistribution
+  | map(select(.percentage >= 50))
+  | sort_by(.percentage)
+  | .[0].latency // 0
+  | . * 1000
+' "$OUTPUT_FILE")
+
+p95=$(jq '
+  .latencyDistribution
+  | map(select(.percentage >= 95))
+  | sort_by(.percentage)
+  | .[0].latency // 0
+  | . * 1000
+' "$OUTPUT_FILE")
+
+p99=$(jq '
+  .latencyDistribution
+  | map(select(.percentage >= 99))
+  | sort_by(.percentage)
+  | .[0].latency // 0
+  | . * 1000
+' "$OUTPUT_FILE")
+
+total=$(jq '.summary.total // 0' "$OUTPUT_FILE")
+success_rate=$(jq '.summary.successRate // 1' "$OUTPUT_FILE")
+errors=$(echo "$total $success_rate" | awk '{printf "%.0f", $1 * (1 - $2)}')
 
 echo "Results for $ROUTE_ID:"
 echo "  Requests/sec: $rps"

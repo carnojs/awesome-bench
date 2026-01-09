@@ -1,71 +1,73 @@
 # BenchHub
 
-Standardized HTTP benchmarks for web frameworks across different programming languages.
+**Standardized HTTP benchmarks for web frameworks across different programming languages.**
 
-## Overview
+BenchHub provides a fair, transparent, and reproducible way to compare the performance of HTTP frameworks. Every framework implements the same routes under identical conditions, ensuring meaningful comparisons.
 
-BenchHub provides a fair, reproducible comparison of HTTP framework performance. All frameworks implement the same routes and are tested under identical conditions.
+## Why BenchHub?
 
-### Key Features
+Benchmark comparisons are often inconsistent—different methodologies, environments, and test scenarios make it hard to draw conclusions. BenchHub solves this by enforcing a strict contract that all frameworks must follow, running tests in isolated containers, and publishing results openly.
 
-- **Standardized Tests**: All frameworks implement the same routes defined in a global contract
-- **Automated Benchmarks**: Tests run automatically when frameworks are added or updated
-- **Reproducible**: Docker-based execution ensures consistent environments
-- **Transparent**: All results and methodology are open source
+### Key Principles
 
-## Benchmark Parameters
+- **Standardized Contract**: All frameworks implement identical routes with the same expected responses
+- **Reproducible Environment**: Docker-based execution ensures consistent, isolated testing
+- **Incremental Updates**: Only changed frameworks are re-benchmarked, preserving historical data
+- **Full Transparency**: All code, methodology, and results are open source
+
+## Benchmark Configuration
 
 | Parameter | Value |
 |-----------|-------|
 | Duration | 6 seconds per route |
-| Connections | 64 concurrent |
+| Concurrent Connections | 64 |
 | Warmup | 1 second |
 | Tool | [oha](https://github.com/hatoo/oha) |
 
-## Current Frameworks
-
-| Framework | Language |
-|-----------|----------|
-| Fiber | Go |
-| net/http | Go |
-| Express | JavaScript (Node.js) |
-| Fastify | JavaScript (Node.js) |
-| Bun.serve | Bun |
-| Elysia | Bun |
-
 ## Routes Tested
 
-All frameworks must implement these routes:
+Every framework must implement these endpoints on port 8080:
 
-| Route | Method | Response |
-|-------|--------|----------|
-| `/health` | GET | Status 200 |
-| `/plaintext` | GET | `OK` (text/plain) |
-| `/json` | GET | `{"message":"OK"}` (application/json) |
+| Route | Method | Response | Content-Type |
+|-------|--------|----------|--------------|
+| `/health` | GET | Status 200 | Any |
+| `/plaintext` | GET | `OK` | `text/plain; charset=utf-8` |
+| `/json` | GET | `{"message":"OK"}` | `application/json; charset=utf-8` |
+
+## Included Frameworks
+
+| Framework | Language | Documentation |
+|-----------|----------|---------------|
+| Fiber | Go | [github.com/gofiber/fiber](https://github.com/gofiber/fiber) |
+| net/http | Go | [pkg.go.dev/net/http](https://pkg.go.dev/net/http) |
+| Express | JavaScript | [github.com/expressjs/express](https://github.com/expressjs/express) |
+| Fastify | JavaScript | [github.com/fastify/fastify](https://github.com/fastify/fastify) |
+| Bun.serve | Bun | [bun.sh/docs/api/http](https://bun.sh/docs/api/http) |
+| Elysia | Bun | [github.com/elysiajs/elysia](https://github.com/elysiajs/elysia) |
 
 ## How It Works
 
-1. **On merge to main**: When a framework is added or modified, the CI automatically detects changes
-2. **Build & Validate**: The framework's Docker image is built and validated against the contract
-3. **Benchmark**: Each route is benchmarked for 6 seconds with 64 concurrent connections
-4. **Publish**: Results are saved and the site is updated
+1. **Trigger**: When code in `frameworks/` is merged to `master`, CI detects which frameworks changed
+2. **Build**: Each changed framework's Docker image is built
+3. **Validate**: The runner verifies the framework implements all routes correctly
+4. **Benchmark**: Each route is tested for 6 seconds with 64 concurrent connections
+5. **Publish**: Results are saved and the site is automatically updated
+
+Frameworks that weren't modified retain their existing results.
 
 ## Running Locally
 
 ### Prerequisites
 
 - Docker
-- [oha](https://github.com/hatoo/oha) (`cargo install oha` or download binary)
+- [oha](https://github.com/hatoo/oha)
 - jq
 - Bash
 
-### Test a Framework
+### Run a Benchmark
 
 ```bash
-# Make scripts executable
 chmod +x runner/*.sh
-
-# Run benchmark for a specific framework
 ./runner/run_framework.sh frameworks/go/fiber
 ```
 
@@ -78,22 +80,22 @@ chmod +x runner/*.sh
 
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new frameworks.
+We welcome contributions. To add a new framework:
 
-### Quick Start
+1. Create `frameworks/<language>/<framework>/`
+2. Add `framework.json` with metadata and documentation URL
+3. Add a `Dockerfile` that builds and runs the server on port 8080
+4. Implement all routes from the contract
+5. Submit a pull request
 
-1. Create a directory: `frameworks/<language>/<framework>/`
-2. Add `framework.json` with metadata
-3. Add `Dockerfile` that builds and runs your server on port 8080
-4. Implement the routes from the contract
-5. Submit a PR
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
 ## Project Structure
 
 ```
 benchhub/
 ├── benchmarks/
-│   └── contract.json      # Route definitions
+│   └── contract.json          # Route definitions (source of truth)
 ├── frameworks/
 │   └── <language>/
 │       └── <framework>/
@@ -101,25 +103,23 @@ benchhub/
 │           ├── framework.json
 │           └── src/
 ├── runner/
-│   ├── run_framework.sh   # Main benchmark runner
-│   ├── validate_contract.sh
-│   ├── benchmark.sh
-│   └── aggregate_results.ts
+│   ├── run_framework.sh       # Main orchestrator
+│   ├── validate_contract.sh   # Contract validation
+│   ├── benchmark.sh           # Benchmark execution
+│   └── aggregate_results.ts   # Results aggregation
 ├── results/
-│   ├── frameworks/
-│   │   └── <framework-id>/
-│   │       └── latest.json
-│   └── index.json
-└── site/                  # React + Vite site
+│   └── frameworks/
+│       └── <id>/latest.json   # Latest results per framework
+└── site/                      # Results website (React + Vite)
 ```
 
 ## Methodology Notes
 
-- Results are captured at different times as frameworks are updated
+- Results are captured at different times as frameworks are updated individually
 - All tests run on GitHub Actions runners (ubuntu-latest)
-- Network overhead is minimal as benchmarks run locally within Docker
+- Benchmarks run locally within Docker, minimizing network variance
 - Results should be used for relative comparisons, not absolute performance claims
 
 ## License
 
-Apache 2.0 - See [LICENSE](LICENSE) for details.
+Apache 2.0 — See [LICENSE](LICENSE) for details.
