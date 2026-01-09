@@ -24,29 +24,9 @@ echo "Parsing results..."
 
 rps=$(jq '.summary.requestsPerSec // 0' "$OUTPUT_FILE")
 
-p50=$(jq '
-  .latencyDistribution
-  | map(select(.percentage >= 50))
-  | sort_by(.percentage)
-  | .[0].latency // 0
-  | . * 1000
-' "$OUTPUT_FILE")
-
-p95=$(jq '
-  .latencyDistribution
-  | map(select(.percentage >= 95))
-  | sort_by(.percentage)
-  | .[0].latency // 0
-  | . * 1000
-' "$OUTPUT_FILE")
-
-p99=$(jq '
-  .latencyDistribution
-  | map(select(.percentage >= 99))
-  | sort_by(.percentage)
-  | .[0].latency // 0
-  | . * 1000
-' "$OUTPUT_FILE")
+p50=$(jq '(.latencyPercentiles.p50 // 0) * 1000' "$OUTPUT_FILE")
+p95=$(jq '(.latencyPercentiles.p95 // 0) * 1000' "$OUTPUT_FILE")
+p99=$(jq '(.latencyPercentiles.p99 // 0) * 1000' "$OUTPUT_FILE")
 
 total=$(jq '.summary.total // 0' "$OUTPUT_FILE")
 success_rate=$(jq '.summary.successRate // 1' "$OUTPUT_FILE")
