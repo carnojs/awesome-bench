@@ -1,0 +1,36 @@
+{
+  "framework_id": "js-fastify",
+  "language": "javascript",
+  "framework": "fastify",
+  "url": "https://github.com/fastify/fastify",
+  "measured_at": "2026-01-09T22:54:44Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 14044.41046829405,
+      "latency_ms": {
+        "p50": 4.28756,
+        "p95": 7.867805000000001,
+        "p99": 10.948787
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 14454.531003360898,
+      "latency_ms": {
+        "p50": 4.428235,
+        "p95": 6.562666,
+        "p99": 9.042015000000001
+      },
+      "errors": 0
+    }
+  }
+}

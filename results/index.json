@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-09T22:51:57.606Z",
+  "generated_at": "2026-01-09T22:55:19.537Z",
   "contract_version": 1,
   "frameworks": [
     {
@@ -15,6 +15,13 @@
       "framework": "Bun.serve",
       "measured_at": "2026-01-09T22:51:24Z",
       "latest": "results/frameworks/bun-http/latest.json"
+    },
+    {
+      "id": "js-fastify",
+      "language": "javascript",
+      "framework": "fastify",
+      "measured_at": "2026-01-09T22:54:44Z",
+      "latest": "results/frameworks/js-fastify/latest.json"
     }
   ]
 }
