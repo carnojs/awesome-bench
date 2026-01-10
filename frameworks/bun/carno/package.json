@@ -3,6 +3,6 @@
     "module": "src/index.ts",
     "type": "module",
     "dependencies": {
-        "@carno.js/core": "^1.0.3"
+        "@carno.js/core": "^1.0.4"
     }
 }
