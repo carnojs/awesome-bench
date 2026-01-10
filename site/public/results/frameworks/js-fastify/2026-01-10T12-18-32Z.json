@@ -1,0 +1,66 @@
+{
+  "framework_id": "js-fastify",
+  "language": "javascript",
+  "framework": "fastify",
+  "url": "https://github.com/fastify/fastify",
+  "measured_at": "2026-01-10T12:18:32Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 13515.86106297702,
+      "latency_ms": {
+        "p50": 3.507751,
+        "p95": 6.572913,
+        "p99": 9.545524
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 13999.766524504888,
+      "latency_ms": {
+        "p50": 3.569876,
+        "p95": 5.700885,
+        "p99": 7.47777
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 6884.674031187219,
+      "latency_ms": {
+        "p50": 6.608208,
+        "p95": 11.803925,
+        "p99": 13.591515
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 12297.469539895383,
+      "latency_ms": {
+        "p50": 3.941086,
+        "p95": 5.13274,
+        "p99": 8.031464999999999
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 12767.970930581165,
+      "latency_ms": {
+        "p50": 3.8098289999999997,
+        "p95": 5.045194,
+        "p99": 7.781352
+      },
+      "errors": 0
+    }
+  }
+}

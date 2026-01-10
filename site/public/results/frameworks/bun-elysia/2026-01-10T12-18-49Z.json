@@ -1,0 +1,66 @@
+{
+  "framework_id": "bun-elysia",
+  "language": "bun",
+  "framework": "elysia",
+  "url": "https://github.com/elysiajs/elysia",
+  "measured_at": "2026-01-10T12:18:49Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 39073.93602071815,
+      "latency_ms": {
+        "p50": 1.166215,
+        "p95": 2.2062280000000003,
+        "p99": 2.685396
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 35371.46264225032,
+      "latency_ms": {
+        "p50": 1.3022820000000002,
+        "p95": 2.480421,
+        "p99": 3.303159
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 20317.13186776721,
+      "latency_ms": {
+        "p50": 2.3577239999999997,
+        "p95": 4.1644179999999995,
+        "p99": 5.045551
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 34890.09167065591,
+      "latency_ms": {
+        "p50": 1.2827570000000001,
+        "p95": 2.501792,
+        "p99": 2.9976920000000002
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 38159.53622024709,
+      "latency_ms": {
+        "p50": 1.18918,
+        "p95": 2.2734330000000003,
+        "p99": 2.73661
+      },
+      "errors": 0
+    }
+  }
+}

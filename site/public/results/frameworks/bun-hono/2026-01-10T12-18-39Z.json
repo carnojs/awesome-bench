@@ -1,0 +1,66 @@
+{
+  "framework_id": "bun-hono",
+  "language": "bun",
+  "framework": "hono",
+  "url": "https://github.com/honojs/hono",
+  "measured_at": "2026-01-10T12:18:39Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 31147.0172339707,
+      "latency_ms": {
+        "p50": 1.4536250000000002,
+        "p95": 2.7986880000000003,
+        "p99": 3.3306329999999997
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 30932.720510977382,
+      "latency_ms": {
+        "p50": 1.484144,
+        "p95": 2.8476450000000004,
+        "p99": 3.545216
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 20232.961228375676,
+      "latency_ms": {
+        "p50": 2.4081430000000004,
+        "p95": 4.116784,
+        "p99": 5.118278
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 27072.332749360492,
+      "latency_ms": {
+        "p50": 1.727047,
+        "p95": 3.22844,
+        "p99": 3.8933280000000003
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 28091.452502644708,
+      "latency_ms": {
+        "p50": 1.64958,
+        "p95": 3.108993,
+        "p99": 3.717175
+      },
+      "errors": 0
+    }
+  }
+}
