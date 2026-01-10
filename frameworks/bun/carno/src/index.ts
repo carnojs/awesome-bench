@@ -4,7 +4,7 @@ import { Carno, Controller, Get } from '@carno.js/core';
 class AppController {
     @Get('/health')
     health() {
-        return;
+        return new Response(null, { status: 200 });
     }
 
     @Get('/plaintext')
