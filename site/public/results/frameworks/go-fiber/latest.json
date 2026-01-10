@@ -3,7 +3,7 @@
   "language": "go",
   "framework": "fiber",
   "url": "https://github.com/gofiber/fiber",
-  "measured_at": "2026-01-10T02:07:56Z",
+  "measured_at": "2026-01-10T12:18:49Z",
   "contract_version": 1,
   "runner_version": "1.0.0",
   "environment": {
@@ -14,21 +14,51 @@
   "benchmarks": {
     "plaintext": {
       "duration_seconds": 6,
-      "requests_per_sec": 46922.92463390451,
+      "requests_per_sec": 48499.7868617936,
       "latency_ms": {
-        "p50": 1.015443,
-        "p95": 1.789442,
-        "p99": 2.353145
+        "p50": 0.997002,
+        "p95": 1.684748,
+        "p99": 2.119157
       },
       "errors": 0
     },
     "json": {
       "duration_seconds": 6,
-      "requests_per_sec": 47511.57263690262,
+      "requests_per_sec": 45507.4457105631,
       "latency_ms": {
-        "p50": 1.020083,
-        "p95": 1.743379,
-        "p99": 2.22813
+        "p50": 1.051043,
+        "p95": 1.855078,
+        "p99": 2.450838
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 41402.68608795334,
+      "latency_ms": {
+        "p50": 1.1573250000000002,
+        "p95": 2.089226,
+        "p99": 2.84065
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 45872.097391553,
+      "latency_ms": {
+        "p50": 1.055372,
+        "p95": 1.808059,
+        "p99": 2.316017
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 46597.837947477165,
+      "latency_ms": {
+        "p50": 1.038789,
+        "p95": 1.777248,
+        "p99": 2.287335
       },
       "errors": 0
     }

@@ -3,7 +3,7 @@
   "language": "javascript",
   "framework": "express",
   "url": "https://github.com/expressjs/express",
-  "measured_at": "2026-01-10T00:39:56Z",
+  "measured_at": "2026-01-10T12:18:34Z",
   "contract_version": 1,
   "runner_version": "1.0.0",
   "environment": {
@@ -14,21 +14,51 @@
   "benchmarks": {
     "plaintext": {
       "duration_seconds": 6,
-      "requests_per_sec": 5025.770512079737,
+      "requests_per_sec": 4631.605747882138,
       "latency_ms": {
-        "p50": 11.553163,
-        "p95": 18.553313,
-        "p99": 24.186698
+        "p50": 9.735772,
+        "p95": 16.400653000000002,
+        "p99": 20.919955
       },
       "errors": 0
     },
     "json": {
       "duration_seconds": 6,
-      "requests_per_sec": 5100.896211693234,
+      "requests_per_sec": 4888.895623375417,
       "latency_ms": {
-        "p50": 11.930939,
-        "p95": 14.924428,
-        "p99": 23.364739
+        "p50": 9.791981999999999,
+        "p95": 12.733288,
+        "p99": 19.595963
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 3855.8749887253016,
+      "latency_ms": {
+        "p50": 12.011554,
+        "p95": 16.121025,
+        "p99": 24.033649
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 4610.559509889072,
+      "latency_ms": {
+        "p50": 10.371941000000001,
+        "p95": 12.807539,
+        "p99": 20.729346
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 4808.622594580592,
+      "latency_ms": {
+        "p50": 9.924252999999998,
+        "p95": 12.373637,
+        "p99": 19.87657
       },
       "errors": 0
     }

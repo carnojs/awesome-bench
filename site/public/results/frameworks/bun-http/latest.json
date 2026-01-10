@@ -3,7 +3,7 @@
   "language": "bun",
   "framework": "Bun.serve",
   "url": "https://bun.sh/docs/api/http",
-  "measured_at": "2026-01-10T04:54:46Z",
+  "measured_at": "2026-01-10T12:18:38Z",
   "contract_version": 1,
   "runner_version": "1.0.0",
   "environment": {
@@ -14,21 +14,51 @@
   "benchmarks": {
     "plaintext": {
       "duration_seconds": 6,
-      "requests_per_sec": 56934.07786288369,
+      "requests_per_sec": 54942.696549452136,
       "latency_ms": {
-        "p50": 0.823472,
-        "p95": 1.468691,
-        "p99": 1.888641
+        "p50": 0.8503729999999999,
+        "p95": 1.530949,
+        "p99": 1.9744939999999997
       },
       "errors": 0
     },
     "json": {
       "duration_seconds": 6,
-      "requests_per_sec": 51386.45847016874,
+      "requests_per_sec": 56525.529792399415,
       "latency_ms": {
-        "p50": 0.9037029999999999,
-        "p95": 1.690168,
-        "p99": 2.229688
+        "p50": 0.83426,
+        "p95": 1.4746659999999998,
+        "p99": 1.85943
+      },
+      "errors": 0
+    },
+    "echo": {
+      "duration_seconds": 6,
+      "requests_per_sec": 25564.872019093113,
+      "latency_ms": {
+        "p50": 1.812753,
+        "p95": 3.454118,
+        "p99": 4.155169
+      },
+      "errors": 0
+    },
+    "search": {
+      "duration_seconds": 6,
+      "requests_per_sec": 31172.093851467034,
+      "latency_ms": {
+        "p50": 1.45104,
+        "p95": 2.8057580000000004,
+        "p99": 3.31135
+      },
+      "errors": 0
+    },
+    "user": {
+      "duration_seconds": 6,
+      "requests_per_sec": 35761.1947873622,
+      "latency_ms": {
+        "p50": 1.259714,
+        "p95": 2.42344,
+        "p99": 2.897055
       },
       "errors": 0
     }

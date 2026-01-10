@@ -67,16 +67,32 @@ async function main() {
   }
 
   for (const entry of entries) {
-    const latestPath = join(frameworksDir, entry, "latest.json");
-
-    if (!existsSync(latestPath)) {
-      continue;
-    }
+    const frameworkDir = join(frameworksDir, entry);
 
     try {
+      // Find the most recent JSON file (excluding latest.json)
+      const files = await readdir(frameworkDir);
+      const jsonFiles = files
+        .filter(f => f.endsWith('.json') && f !== 'latest.json')
+        .sort()
+        .reverse();
+
+      if (jsonFiles.length === 0) {
+        console.log(`No result files found for ${entry}, skipping`);
+        continue;
+      }
+
+      const mostRecentFile = jsonFiles[0];
+      const mostRecentPath = join(frameworkDir, mostRecentFile);
+      const latestPath = join(frameworkDir, "latest.json");
+
       const result: FrameworkResult = JSON.parse(
-        await readFile(latestPath, "utf-8")
+        await readFile(mostRecentPath, "utf-8")
       );
+
+      // Update latest.json to point to the most recent result
+      await writeFile(latestPath, JSON.stringify(result, null, 2));
+      console.log(`Updated latest.json for ${entry} -> ${mostRecentFile}`);
 
       frameworks.push({
         id: result.framework_id,
@@ -88,7 +104,7 @@ async function main() {
 
       console.log(`Added: ${result.framework_id}`);
     } catch (error) {
-      console.error(`Error reading ${latestPath}:`, error);
+      console.error(`Error processing ${entry}:`, error);
     }
   }
 

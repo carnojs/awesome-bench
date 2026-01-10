@@ -1,55 +1,13 @@
 {
-  "generated_at": "2026-01-10T12:19:44.321Z",
+  "generated_at": "2026-01-10T14:00:00.000Z",
   "contract_version": 1,
   "frameworks": [
-    {
-      "id": "bun-carno",
-      "language": "bun",
-      "framework": "carno.js",
-      "measured_at": "2026-01-10T12:18:29Z",
-      "latest": "results/frameworks/bun-carno/latest.json"
-    },
-    {
-      "id": "bun-elysia",
-      "language": "bun",
-      "framework": "elysia",
-      "measured_at": "2026-01-10T11:25:11Z",
-      "latest": "results/frameworks/bun-elysia/latest.json"
-    },
-    {
-      "id": "bun-hono",
-      "language": "bun",
-      "framework": "hono",
-      "measured_at": "2026-01-10T11:34:20Z",
-      "latest": "results/frameworks/bun-hono/latest.json"
-    },
-    {
-      "id": "bun-http",
-      "language": "bun",
-      "framework": "Bun.serve",
-      "measured_at": "2026-01-10T04:54:46Z",
-      "latest": "results/frameworks/bun-http/latest.json"
-    },
-    {
-      "id": "go-fiber",
-      "language": "go",
-      "framework": "fiber",
-      "measured_at": "2026-01-10T02:07:56Z",
-      "latest": "results/frameworks/go-fiber/latest.json"
-    },
-    {
-      "id": "js-express",
-      "language": "javascript",
-      "framework": "express",
-      "measured_at": "2026-01-10T00:39:56Z",
-      "latest": "results/frameworks/js-express/latest.json"
-    },
-    {
-      "id": "js-fastify",
-      "language": "javascript",
-      "framework": "fastify",
-      "measured_at": "2026-01-10T04:15:19Z",
-      "latest": "results/frameworks/js-fastify/latest.json"
-    }
+    {"id": "bun-carno", "language": "bun", "framework": "carno.js", "measured_at": "2026-01-10T12:18:29Z", "latest": "results/frameworks/bun-carno/latest.json"},
+    {"id": "bun-elysia", "language": "bun", "framework": "elysia", "measured_at": "2026-01-10T12:18:49Z", "latest": "results/frameworks/bun-elysia/latest.json"},
+    {"id": "bun-hono", "language": "bun", "framework": "hono", "measured_at": "2026-01-10T12:18:39Z", "latest": "results/frameworks/bun-hono/latest.json"},
+    {"id": "bun-http", "language": "bun", "framework": "Bun.serve", "measured_at": "2026-01-10T12:18:38Z", "latest": "results/frameworks/bun-http/latest.json"},
+    {"id": "go-fiber", "language": "go", "framework": "fiber", "measured_at": "2026-01-10T12:18:49Z", "latest": "results/frameworks/go-fiber/latest.json"},
+    {"id": "js-express", "language": "javascript", "framework": "express", "measured_at": "2026-01-10T12:18:34Z", "latest": "results/frameworks/js-express/latest.json"},
+    {"id": "js-fastify", "language": "javascript", "framework": "fastify", "measured_at": "2026-01-10T12:18:32Z", "latest": "results/frameworks/js-fastify/latest.json"}
   ]
 }
