@@ -2,6 +2,6 @@
   "name": "benchhub-hono",
   "version": "1.0.0",
   "dependencies": {
-    "hono": "^4.11.13"
+    "hono": "^4.11.3"
   }
 }
