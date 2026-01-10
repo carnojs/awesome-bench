@@ -1,0 +1,8 @@
+{
+    "name": "benchhub-bun-carno",
+    "module": "src/index.ts",
+    "type": "module",
+    "dependencies": {
+        "@carno.js/core": "latest"
+    }
+}

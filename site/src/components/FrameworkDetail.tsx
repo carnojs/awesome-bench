@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { FrameworkResult } from "../types";
 
+// Estimate production performance: (value/1000)² × 100
+const estimateProduction = (value: number) => Math.pow(value / 1000, 2) * 100;
+
 export default function FrameworkDetail() {
   const { id } = useParams<{ id: string }>();
   const [result, setResult] = useState<FrameworkResult | null>(null);
@@ -122,11 +125,16 @@ export default function FrameworkDetail() {
 
             <div className="space-y-4">
               <div>
-                <div className="flex justify-between items-center mb-1">
+                <div className="flex justify-between items-start mb-1">
                   <span className="text-sm text-[var(--text-secondary)]">Requests/sec</span>
-                  <span className="text-2xl font-bold font-mono">
-                    {formatNumber(benchmark.requests_per_sec)}
-                  </span>
+                  <div className="text-right">
+                    <span className="block text-2xl font-bold font-mono text-[var(--accent)]">
+                      {formatNumber(estimateProduction(benchmark.requests_per_sec))}
+                    </span>
+                    <span className="block text-xs text-[var(--text-muted)] mt-1">
+                      measured: {formatNumber(benchmark.requests_per_sec)}
+                    </span>
+                  </div>
                 </div>
                 <div className="h-2 bg-[var(--bg-primary)] rounded-full overflow-hidden">
                   <div

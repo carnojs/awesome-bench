@@ -1,0 +1,7 @@
+{
+    "id": "bun-carno",
+    "language": "bun",
+    "framework": "carno.js",
+    "url": "https://github.com/carnojs/carno.js",
+    "contract_version": 1
+}
