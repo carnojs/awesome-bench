@@ -1,0 +1,7 @@
+{
+  "id": "bun-hono",
+  "language": "bun",
+  "framework": "hono",
+  "url": "https://github.com/honojs/hono",
+  "contract_version": 1
+}

@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/badge/license-Apache_2.0-blue.svg)
 ![Status](https://img.shields.io/badge/status-active-success.svg)
-![Frameworks](https://img.shields.io/badge/frameworks-7-orange)
+![Frameworks](https://img.shields.io/badge/frameworks-8-orange)
 
 Awesome Bench provides a fair, transparent, and reproducible way to compare the performance of HTTP frameworks. Every framework implements the **same routes** under **identical conditions**, ensuring meaningful side-by-side comparisons.
 
@@ -53,6 +53,7 @@ We currently track performance for the following frameworks:
 | **Fastify** | JavaScript | [github.com/fastify/fastify](https://github.com/fastify/fastify) |
 | **Bun.serve** | Bun | [bun.sh/docs/api/http](https://bun.sh/docs/api/http) |
 | **Elysia** | Bun | [github.com/elysiajs/elysia](https://github.com/elysiajs/elysia) |
+| **Hono** | Bun | [github.com/honojs/hono](https://github.com/honojs/hono) |
 | **Carno.js** | Bun | [github.com/carnojs/carno.js](https://github.com/carnojs/carno.js) |
 
 ## How It Works
