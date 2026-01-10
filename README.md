@@ -1,4 +1,4 @@
-# ⚡ Awesome Bench
+# Awesome Bench
 
 **Standardized, contract-driven HTTP benchmarks for web frameworks across different languages.**
 
@@ -10,16 +10,16 @@ Awesome Bench provides a fair, transparent, and reproducible way to compare the 
 
 ---
 
-## 🚀 Why Awesome Bench?
+## Why Awesome Bench?
 
 Benchmark comparisons are often inconsistent—different methodologies, environments, and test scenarios make it hard to draw conclusions. Awesome Bench solves this by enforcing a strict contract that all frameworks must follow.
 
-- **📜 Standardized Contract**: All frameworks implement identical routes with the same expected responses.
-- **🐳 Reproducible Environment**: Docker-based execution ensures consistent, isolated testing.
-- **🔄 Incremental Updates**: Only changed frameworks are re-benchmarked, preserving historical data.
-- **🔍 Full Transparency**: All code, methodology, and results are open source.
+- **Standardized Contract**: All frameworks implement identical routes with the same expected responses.
+- **Reproducible Environment**: Docker-based execution ensures consistent, isolated testing.
+- **Incremental Updates**: Only changed frameworks are re-benchmarked, preserving historical data.
+- **Full Transparency**: All code, methodology, and results are open source.
 
-## 📊 Benchmark Configuration
+## Benchmark Configuration
 
 All benchmarks are executed in a standardized environment to ensure fairness.
 
@@ -31,7 +31,7 @@ All benchmarks are executed in a standardized environment to ensure fairness.
 | **Tool** | [oha](https://github.com/hatoo/oha) (HTTP load generator) |
 | **Environment** | Linux Docker Containers (GitHub Actions) |
 
-## 🛣️ Routes Tested
+## Routes Tested
 
 Every framework must implement the following endpoints on port **8080**:
 
@@ -41,7 +41,7 @@ Every framework must implement the following endpoints on port **8080**:
 | `/plaintext` | `GET` | `OK` | `text/plain` |
 | `/json` | `GET` | `{"message":"OK"}` | `application/json` |
 
-## 🏎️ Included Frameworks
+## Included Frameworks
 
 We currently track performance for the following frameworks:
 
@@ -55,7 +55,7 @@ We currently track performance for the following frameworks:
 | **Elysia** | Bun | [github.com/elysiajs/elysia](https://github.com/elysiajs/elysia) |
 | **Carno.js** | Bun | [github.com/carnojs/carno.js](https://github.com/carnojs/carno.js) |
 
-## 🛠️ How It Works
+## How It Works
 
 1. **Trigger**: Code changes in `frameworks/` trigger the CI pipeline.
 2. **Build**: Docker images are built for changed frameworks.
@@ -63,7 +63,7 @@ We currently track performance for the following frameworks:
 4. **Benchmark**: Routes are stress-tested using `oha`.
 5. **Publish**: Results are automatically pushed to the website.
 
-## 💻 Running Locally
+## Running Locally
 
 ### Prerequisites
 - Docker
@@ -87,7 +87,7 @@ Quickly check if a framework (running locally) satisfies the benchmark requireme
 ./runner/validate_contract.sh http://localhost:8080
 ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! To add a new framework:
 
@@ -99,7 +99,7 @@ We welcome contributions! To add a new framework:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed instructions.
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 awesome-bench/
@@ -115,6 +115,6 @@ awesome-bench/
 └── site/                      # React + Vite visualization dashboard
 ```
 
-## 📄 License
+## License
 
 Apache 2.0 — See [LICENSE](LICENSE) for details.
