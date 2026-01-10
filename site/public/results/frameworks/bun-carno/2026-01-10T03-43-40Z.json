@@ -1,0 +1,36 @@
+{
+  "framework_id": "bun-carno",
+  "language": "bun",
+  "framework": "carno.js",
+  "url": "https://github.com/carnojs/carno.js",
+  "measured_at": "2026-01-10T03:43:40Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 53283.19278209739,
+      "latency_ms": {
+        "p50": 0.8725620000000001,
+        "p95": 1.60371,
+        "p99": 2.071443
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 46025.59338777506,
+      "latency_ms": {
+        "p50": 1.0008029999999999,
+        "p95": 1.873708,
+        "p99": 2.8867710000000004
+      },
+      "errors": 0
+    }
+  }
+}
