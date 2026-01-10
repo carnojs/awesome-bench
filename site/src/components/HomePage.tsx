@@ -202,7 +202,7 @@ export default function HomePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border-color)]">
-              {sortedFrameworks.map((fw, idx) => (
+              {sortedFrameworks.map((fw) => (
                 <tr
                   key={fw.id}
                   className="hover:bg-[var(--bg-secondary)] transition-colors"
