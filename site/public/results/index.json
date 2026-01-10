@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-10T04:00:47.944Z",
+  "generated_at": "2026-01-10T04:15:51.629Z",
   "contract_version": 1,
   "frameworks": [
     {
@@ -41,7 +41,7 @@
       "id": "js-fastify",
       "language": "javascript",
       "framework": "fastify",
-      "measured_at": "2026-01-09T22:54:44Z",
+      "measured_at": "2026-01-10T04:15:19Z",
       "latest": "results/frameworks/js-fastify/latest.json"
     }
   ]
