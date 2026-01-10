@@ -68,7 +68,10 @@ export default function HomePage({ currentView }: HomePageProps) {
   useEffect(() => {
     async function loadData() {
       try {
-        const indexRes = await fetch("/awesome-bench/results/index.json");
+        // Use cache: no-cache to always revalidate with server
+        const fetchOptions: RequestInit = { cache: "no-cache" };
+
+        const indexRes = await fetch("/awesome-bench/results/index.json", fetchOptions);
         if (!indexRes.ok) {
           setError("No benchmark results available yet.");
           setLoading(false);
@@ -78,7 +81,7 @@ export default function HomePage({ currentView }: HomePageProps) {
         setIndex(indexData);
 
         const frameworkPromises = indexData.frameworks.map(async (entry) => {
-          const res = await fetch(`/awesome-bench/${entry.latest}`);
+          const res = await fetch(`/awesome-bench/${entry.latest}`, fetchOptions);
           if (!res.ok) return null;
           const result: FrameworkResult = await res.json();
           return {
