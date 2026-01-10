@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-10T12:31:39.576Z",
+  "generated_at": "2026-01-10T12:35:09.189Z",
   "contract_version": 1,
   "frameworks": [
     {
@@ -13,7 +13,7 @@
       "id": "bun-elysia",
       "language": "bun",
       "framework": "elysia",
-      "measured_at": "2026-01-10T12:18:49Z",
+      "measured_at": "2026-01-10T12:34:18Z",
       "latest": "results/frameworks/bun-elysia/latest.json"
     },
     {
