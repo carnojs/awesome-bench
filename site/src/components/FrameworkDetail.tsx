@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import type { FrameworkResult } from "../types";
 
-// Estimate production performance: (value/1000)² × 100
-const estimateProduction = (value: number) => Math.pow(value / 1000, 2) * 100;
+// Estimate production performance: value * 4
+const estimateProduction = (value: number) => value * 4;
 
 export default function FrameworkDetail() {
   const { id } = useParams<{ id: string }>();

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import type { IndexFile, FrameworkResult } from "../types";
 import type { ViewType } from "./Sidebar";
 
-// Estimate production performance: (value/1000)² × 100
-const estimateProduction = (value: number) => Math.pow(value / 1000, 2) * 100;
+// Estimate production performance: value * 4
+const estimateProduction = (value: number) => value * 4;
 
 type SortDirection = "asc" | "desc";
 
