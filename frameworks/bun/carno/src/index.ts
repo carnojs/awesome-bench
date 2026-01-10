@@ -1,4 +1,4 @@
-import { Carno, Controller, Get } from '@carno.js/core';
+import { Carno, Controller, Get, Post, Param, Query, Body } from '@carno.js/core';
 
 @Controller()
 class AppController {
@@ -15,6 +15,21 @@ class AppController {
     @Get('/json')
     json() {
         return Response.json({ message: "OK" });
+    }
+
+    @Post('/echo')
+    echo(@Body() body: any) {
+        return Response.json(body);
+    }
+
+    @Get('/search')
+    search(@Query('q') q: string, @Query('limit') limit: string) {
+        return Response.json({ query: q || "", limit: parseInt(limit || "0", 10) });
+    }
+
+    @Get('/user/:id')
+    user(@Param('id') id: string) {
+        return Response.json({ id });
     }
 }
 

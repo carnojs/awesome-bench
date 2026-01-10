@@ -3,6 +3,9 @@
 export type ViewType =
     | "plaintext_rps"
     | "json_rps"
+    | "echo_rps"
+    | "search_rps"
+    | "user_rps"
     | "latency_p95"
     | "latency_p99"
     | "all_metrics";
@@ -25,6 +28,9 @@ const menuItems = [
         items: [
             { id: "plaintext_rps" as ViewType, label: "Plaintext (req/s)", emoji: "🚀" },
             { id: "json_rps" as ViewType, label: "JSON (req/s)", emoji: "📦" },
+            { id: "echo_rps" as ViewType, label: "Echo POST (req/s)", emoji: "🔄" },
+            { id: "search_rps" as ViewType, label: "Query Params (req/s)", emoji: "🔍" },
+            { id: "user_rps" as ViewType, label: "Path Params (req/s)", emoji: "👤" },
             { id: "latency_p95" as ViewType, label: "Latency (p95)", emoji: "⚡" },
             { id: "latency_p99" as ViewType, label: "Latency (p99)", emoji: "🎯" },
         ],

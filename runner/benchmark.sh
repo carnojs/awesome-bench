@@ -4,17 +4,23 @@ set -e
 ROUTE_ID="$1"
 URL="$2"
 OUTPUT_FILE="$3"
+METHOD="${4:-GET}"
+BODY="$5"
 
 DURATION="6s"
 CONNECTIONS=64
 
 if [ -z "$ROUTE_ID" ] || [ -z "$URL" ] || [ -z "$OUTPUT_FILE" ]; then
-    echo "Usage: benchmark.sh <route_id> <url> <output_file>"
+    echo "Usage: benchmark.sh <route_id> <url> <output_file> [method] [body]"
     exit 1
 fi
 
 echo "Running benchmark for $DURATION with $CONNECTIONS connections..."
-oha -z "$DURATION" --no-tui -j "$URL" > "$OUTPUT_FILE"
+if [ "$METHOD" = "POST" ] && [ -n "$BODY" ] && [ "$BODY" != "null" ]; then
+    oha -z "$DURATION" --no-tui -j -m POST -H "Content-Type: application/json" -d "$BODY" "$URL" > "$OUTPUT_FILE"
+else
+    oha -z "$DURATION" --no-tui -j "$URL" > "$OUTPUT_FILE"
+fi
 
 echo "Parsing results..."
 

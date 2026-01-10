@@ -18,6 +18,7 @@ validate_route() {
     local expect_content_type="$5"
     local response_type="$6"
     local response_body="$7"
+    local request_body="$8"
 
     local url="${BASE_URL}${path}"
     local response
@@ -25,7 +26,11 @@ validate_route() {
     local content_type
     local body
 
-    response=$(curl -s -w "\n%{http_code}\n%{content_type}" -X "$method" "$url")
+    if [ "$method" = "POST" ] && [ -n "$request_body" ] && [ "$request_body" != "null" ]; then
+        response=$(curl -s -w "\n%{http_code}\n%{content_type}" -X POST -H "Content-Type: application/json" -d "$request_body" "$url")
+    else
+        response=$(curl -s -w "\n%{http_code}\n%{content_type}" -X "$method" "$url")
+    fi
     body=$(echo "$response" | sed -n '1p')
     http_code=$(echo "$response" | sed -n '2p')
     content_type=$(echo "$response" | sed -n '3p')
@@ -86,12 +91,29 @@ for i in $(seq 0 $((routes_count - 1))); do
     expect_content_type=$(jq -r ".routes[$i].headers[\"content-type\"]" "$CONTRACT_FILE")
     response_type=$(jq -r ".routes[$i].response.type" "$CONTRACT_FILE")
     response_body=$(jq -c ".routes[$i].response.body" "$CONTRACT_FILE")
+    request_body=$(jq -c ".routes[$i].request.body // null" "$CONTRACT_FILE")
+
+    # Substituir path params
+    path_params=$(jq -c ".routes[$i].path_params // {}" "$CONTRACT_FILE")
+    if [ "$path_params" != "{}" ]; then
+        for key in $(echo "$path_params" | jq -r 'keys[]'); do
+            value=$(echo "$path_params" | jq -r ".[\"$key\"]")
+            path=$(echo "$path" | sed "s/:$key/$value/g")
+        done
+    fi
+
+    # Adicionar query params
+    query_params=$(jq -c ".routes[$i].query // {}" "$CONTRACT_FILE")
+    if [ "$query_params" != "{}" ]; then
+        query_string=$(echo "$query_params" | jq -r 'to_entries | map("\(.key)=\(.value)") | join("&")')
+        path="${path}?${query_string}"
+    fi
 
     if [ "$response_type" = "text" ]; then
         response_body=$(jq -r ".routes[$i].response.body" "$CONTRACT_FILE")
     fi
 
-    if ! validate_route "$id" "$method" "$path" "$expect_status" "$expect_content_type" "$response_type" "$response_body"; then
+    if ! validate_route "$id" "$method" "$path" "$expect_status" "$expect_content_type" "$response_type" "$response_body" "$request_body"; then
         failed=1
     fi
 done

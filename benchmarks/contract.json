@@ -36,6 +36,70 @@
           "message": "OK"
         }
       }
+    },
+    {
+      "id": "echo",
+      "method": "POST",
+      "path": "/echo",
+      "expect_status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "request": {
+        "body": {
+          "data": "test",
+          "nested": {
+            "value": 123
+          }
+        }
+      },
+      "response": {
+        "type": "json",
+        "body": {
+          "data": "test",
+          "nested": {
+            "value": 123
+          }
+        }
+      }
+    },
+    {
+      "id": "search",
+      "method": "GET",
+      "path": "/search",
+      "query": {
+        "q": "foo",
+        "limit": "10"
+      },
+      "expect_status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "response": {
+        "type": "json",
+        "body": {
+          "query": "foo",
+          "limit": 10
+        }
+      }
+    },
+    {
+      "id": "user",
+      "method": "GET",
+      "path": "/user/:id",
+      "path_params": {
+        "id": "123"
+      },
+      "expect_status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "response": {
+        "type": "json",
+        "body": {
+          "id": "123"
+        }
+      }
     }
   ]
 }
