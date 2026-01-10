@@ -45,7 +45,7 @@ interface IndexFile {
 
 async function main() {
   const scriptDir = dirname(new URL(import.meta.url).pathname);
-  const resultsDir = join(scriptDir, "..", "results");
+  const resultsDir = join(scriptDir, "..", "site", "public", "results");
   const frameworksDir = join(resultsDir, "frameworks");
   const contractFile = join(scriptDir, "..", "benchmarks", "contract.json");
 

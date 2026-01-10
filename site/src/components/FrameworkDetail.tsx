@@ -14,7 +14,7 @@ export default function FrameworkDetail() {
       if (!id) return;
 
       try {
-        const res = await fetch(`./results/frameworks/${id}/latest.json`);
+        const res = await fetch(`/awesome-bench/results/frameworks/${id}/latest.json`);
         if (!res.ok) {
           setError("Framework not found.");
           setLoading(false);

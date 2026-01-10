@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: results-${{ hashFiles(format('{0}/framework.json', matrix.framework)) }}
-          path: results/frameworks/
+          path: site/public/results/frameworks/
           retention-days: 1
 
   aggregate:
@@ -98,9 +98,9 @@ jobs:
 
       - name: Merge results
         run: |
-          mkdir -p results/frameworks
+          mkdir -p site/public/results/frameworks
           if [ -d "downloaded-results" ]; then
-            cp -r downloaded-results/* results/frameworks/ 2>/dev/null || true
+            cp -r downloaded-results/* site/public/results/frameworks/ 2>/dev/null || true
           fi
 
       - name: Setup Bun
@@ -113,6 +113,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add results/
+          git add site/public/results/
           git diff --staged --quiet || git commit -m "Update benchmark results [skip ci]"
           git push

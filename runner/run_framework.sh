@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FRAMEWORK_PATH="$1"
-RESULTS_DIR="${SCRIPT_DIR}/../results"
+RESULTS_DIR="${SCRIPT_DIR}/../site/public/results"
 CONTRACT_FILE="${SCRIPT_DIR}/../benchmarks/contract.json"
 
 if [ -z "$FRAMEWORK_PATH" ]; then

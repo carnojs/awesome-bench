@@ -7,18 +7,14 @@ OUTPUT_FILE="$3"
 
 DURATION="6s"
 CONNECTIONS=64
-WARMUP_DURATION="1s"
 
 if [ -z "$ROUTE_ID" ] || [ -z "$URL" ] || [ -z "$OUTPUT_FILE" ]; then
     echo "Usage: benchmark.sh <route_id> <url> <output_file>"
     exit 1
 fi
 
-echo "Running warmup for $WARMUP_DURATION..."
-oha -z "$WARMUP_DURATION" -c "$CONNECTIONS" --no-tui -q "$URL" > /dev/null 2>&1 || true
-
 echo "Running benchmark for $DURATION with $CONNECTIONS connections..."
-oha -z "$DURATION" -c "$CONNECTIONS" --no-tui -j "$URL" > "$OUTPUT_FILE"
+oha -z "$DURATION" --no-tui -j "$URL" > "$OUTPUT_FILE"
 
 echo "Parsing results..."
 
