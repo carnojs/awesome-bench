@@ -28,7 +28,7 @@
       "path": "/json",
       "expect_status": 200,
       "headers": {
-        "content-type": "application/json; charset=utf-8"
+        "content-type": "application/json"
       },
       "response": {
         "type": "json",

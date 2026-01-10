@@ -19,7 +19,6 @@ func main() {
 	})
 
 	app.Get("/json", func(c *fiber.Ctx) error {
-		c.Set("Content-Type", "application/json; charset=utf-8")
 		return c.JSON(fiber.Map{"message": "OK"})
 	})
 

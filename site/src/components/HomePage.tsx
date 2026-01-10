@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import type { IndexFile, FrameworkResult } from "../types";
 import type { ViewType } from "./Sidebar";
 
-// Multiplier to estimate production performance
-const PERFORMANCE_MULTIPLIER = 4.14159;
+// Estimate production performance: (value/1000)² × 100
+const estimateProduction = (value: number) => Math.pow(value / 1000, 2) * 100;
 
 type SortDirection = "asc" | "desc";
 
@@ -304,7 +304,7 @@ export default function HomePage({ currentView }: HomePageProps) {
                 <p className="text-sm text-[var(--text-secondary)] font-medium">Best</p>
                 <p className="text-lg font-bold truncate">{stats.bestPerformer}</p>
                 <p className="text-sm text-[var(--success)] font-semibold">
-                  {isLatencyView ? formatLatency(stats.bestValue) : `${formatNumber(stats.bestValue * PERFORMANCE_MULTIPLIER)} req/s`}
+                  {isLatencyView ? formatLatency(stats.bestValue) : `${formatNumber(estimateProduction(stats.bestValue))} req/s`}
                 </p>
               </div>
             </div>
@@ -431,10 +431,10 @@ export default function HomePage({ currentView }: HomePageProps) {
                       </span>
                     </td>
                     <td className="px-4 py-4 font-mono text-sm font-semibold">
-                      {formatNumber(fw.plaintext_rps * PERFORMANCE_MULTIPLIER)}
+                      {formatNumber(estimateProduction(fw.plaintext_rps))}
                     </td>
                     <td className="px-4 py-4 font-mono text-sm font-semibold">
-                      {formatNumber(fw.json_rps * PERFORMANCE_MULTIPLIER)}
+                      {formatNumber(estimateProduction(fw.json_rps))}
                     </td>
                     <td className="px-4 py-4 font-mono text-sm text-[var(--text-secondary)]">
                       {formatLatency(fw.plaintext_p95)}
@@ -567,7 +567,7 @@ export default function HomePage({ currentView }: HomePageProps) {
                                   />
                                 </div>
                                 <span className="font-mono font-bold text-sm">
-                                  {formatNumber(value * PERFORMANCE_MULTIPLIER)}
+                                  {formatNumber(estimateProduction(value))}
                                 </span>
                               </div>
                             </td>
@@ -621,7 +621,7 @@ export default function HomePage({ currentView }: HomePageProps) {
                       ) : (
                         <>
                           <p className="font-mono font-bold text-lg text-[var(--accent)]">
-                            {formatNumber(value * PERFORMANCE_MULTIPLIER)}
+                            {formatNumber(estimateProduction(value))}
                           </p>
                           <p className="text-xs text-[var(--text-muted)]">
                             measured: {formatNumber(value)}
