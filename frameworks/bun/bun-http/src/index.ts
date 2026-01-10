@@ -9,9 +9,11 @@ Bun.serve({
       { message: "OK" },
       { headers: { "Content-Type": "application/json; charset=utf-8" } }
     ),
-    "POST /echo": async (req) => {
-      const body = await req.json();
-      return Response.json(body);
+    "/echo": {
+      POST: async (req) => {
+        const body = await req.json();
+        return Response.json(body);
+      },
     },
     "/search": (req) => {
       const url = new URL(req.url);
@@ -19,8 +21,8 @@ Bun.serve({
       const limit = parseInt(url.searchParams.get("limit") || "0", 10);
       return Response.json({ query: q, limit });
     },
-    "/user/:id": (req, params) => {
-      return Response.json({ id: params.id });
+    "/user/:id": (req) => {
+      return Response.json({ id: req.params.id });
     },
   },
   fetch(req) {
