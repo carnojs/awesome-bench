@@ -18,6 +18,21 @@ app.get("/json", (c) => {
   });
 });
 
+app.post("/echo", async (c) => {
+  const body = await c.req.json();
+  return c.json(body);
+});
+
+app.get("/search", (c) => {
+  const q = c.req.query("q") || "";
+  const limit = parseInt(c.req.query("limit") || "0", 10);
+  return c.json({ query: q, limit });
+});
+
+app.get("/user/:id", (c) => {
+  return c.json({ id: c.req.param("id") });
+});
+
 export default {
   port: 8080,
   fetch: app.fetch,

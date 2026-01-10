@@ -19,6 +19,15 @@ interface FrameworkData {
   json_rps: number;
   json_p95: number;
   json_p99: number;
+  echo_rps: number;
+  echo_p95: number;
+  echo_p99: number;
+  search_rps: number;
+  search_p95: number;
+  search_p99: number;
+  user_rps: number;
+  user_p95: number;
+  user_p99: number;
   measured_at: string;
 }
 
@@ -39,6 +48,9 @@ const getLanguageClass = (lang: string): string => {
 const viewTitles: Record<ViewType, { title: string; subtitle: string; metric: string }> = {
   plaintext_rps: { title: "Plaintext Performance", subtitle: "Ranked by requests per second", metric: "req/s" },
   json_rps: { title: "JSON Performance", subtitle: "Ranked by requests per second", metric: "req/s" },
+  echo_rps: { title: "Echo POST Performance", subtitle: "JSON parsing speed (POST body)", metric: "req/s" },
+  search_rps: { title: "Query Params Performance", subtitle: "Querystring parsing speed", metric: "req/s" },
+  user_rps: { title: "Path Params Performance", subtitle: "Router pattern matching efficiency", metric: "req/s" },
   latency_p95: { title: "Best Latency (p95)", subtitle: "Ranked by 95th percentile response time", metric: "p95" },
   latency_p99: { title: "Best Latency (p99)", subtitle: "Ranked by 99th percentile response time", metric: "p99" },
   all_metrics: { title: "All Metrics", subtitle: "Complete comparison of all benchmarks", metric: "" },
@@ -80,6 +92,15 @@ export default function HomePage({ currentView }: HomePageProps) {
             json_rps: result.benchmarks.json?.requests_per_sec ?? 0,
             json_p95: result.benchmarks.json?.latency_ms.p95 ?? 0,
             json_p99: result.benchmarks.json?.latency_ms.p99 ?? 0,
+            echo_rps: result.benchmarks.echo?.requests_per_sec ?? 0,
+            echo_p95: result.benchmarks.echo?.latency_ms.p95 ?? 0,
+            echo_p99: result.benchmarks.echo?.latency_ms.p99 ?? 0,
+            search_rps: result.benchmarks.search?.requests_per_sec ?? 0,
+            search_p95: result.benchmarks.search?.latency_ms.p95 ?? 0,
+            search_p99: result.benchmarks.search?.latency_ms.p99 ?? 0,
+            user_rps: result.benchmarks.user?.requests_per_sec ?? 0,
+            user_p95: result.benchmarks.user?.latency_ms.p95 ?? 0,
+            user_p99: result.benchmarks.user?.latency_ms.p99 ?? 0,
             measured_at: result.measured_at,
           };
         });
@@ -102,6 +123,9 @@ export default function HomePage({ currentView }: HomePageProps) {
     switch (currentView) {
       case "plaintext_rps": return fw.plaintext_rps;
       case "json_rps": return fw.json_rps;
+      case "echo_rps": return fw.echo_rps;
+      case "search_rps": return fw.search_rps;
+      case "user_rps": return fw.user_rps;
       case "latency_p95": return fw.plaintext_p95;
       case "latency_p99": return fw.plaintext_p99;
       default: return fw.plaintext_rps;
@@ -401,10 +425,19 @@ export default function HomePage({ currentView }: HomePageProps) {
                     Language
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Plaintext RPS
+                    Plaintext
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
-                    JSON RPS
+                    JSON
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
+                    Echo
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
+                    Search
+                  </th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
+                    User
                   </th>
                   <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
                     p95
@@ -435,6 +468,15 @@ export default function HomePage({ currentView }: HomePageProps) {
                     </td>
                     <td className="px-4 py-4 font-mono text-sm font-semibold">
                       {formatNumber(estimateProduction(fw.json_rps))}
+                    </td>
+                    <td className="px-4 py-4 font-mono text-sm font-semibold">
+                      {formatNumber(estimateProduction(fw.echo_rps))}
+                    </td>
+                    <td className="px-4 py-4 font-mono text-sm font-semibold">
+                      {formatNumber(estimateProduction(fw.search_rps))}
+                    </td>
+                    <td className="px-4 py-4 font-mono text-sm font-semibold">
+                      {formatNumber(estimateProduction(fw.user_rps))}
                     </td>
                     <td className="px-4 py-4 font-mono text-sm text-[var(--text-secondary)]">
                       {formatLatency(fw.plaintext_p95)}

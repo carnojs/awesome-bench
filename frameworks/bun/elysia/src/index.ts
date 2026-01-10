@@ -10,4 +10,10 @@ new Elysia()
     set.headers["Content-Type"] = "application/json; charset=utf-8";
     return { message: "OK" };
   })
+  .post("/echo", ({ body }) => body)
+  .get("/search", ({ query }) => ({
+    query: query.q || "",
+    limit: parseInt(query.limit || "0", 10)
+  }))
+  .get("/user/:id", ({ params }) => ({ id: params.id }))
   .listen(8080);

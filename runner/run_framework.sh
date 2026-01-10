@@ -94,11 +94,31 @@ BENCHMARKS_JSON="{"
 for i in $(seq 0 $((ROUTES_COUNT - 1))); do
     ROUTE_ID=$(jq -r ".routes[$i].id" "$CONTRACT_FILE")
     ROUTE_PATH=$(jq -r ".routes[$i].path" "$CONTRACT_FILE")
+    ROUTE_METHOD=$(jq -r ".routes[$i].method" "$CONTRACT_FILE")
+
+    # Substituir path params
+    PATH_PARAMS=$(jq -c ".routes[$i].path_params // {}" "$CONTRACT_FILE")
+    if [ "$PATH_PARAMS" != "{}" ]; then
+        for key in $(echo "$PATH_PARAMS" | jq -r 'keys[]'); do
+            value=$(echo "$PATH_PARAMS" | jq -r ".[\"$key\"]")
+            ROUTE_PATH=$(echo "$ROUTE_PATH" | sed "s/:$key/$value/g")
+        done
+    fi
+
+    # Adicionar query params
+    QUERY_PARAMS=$(jq -c ".routes[$i].query // {}" "$CONTRACT_FILE")
+    if [ "$QUERY_PARAMS" != "{}" ]; then
+        QUERY_STRING=$(echo "$QUERY_PARAMS" | jq -r 'to_entries | map("\(.key)=\(.value)") | join("&")')
+        ROUTE_PATH="${ROUTE_PATH}?${QUERY_STRING}"
+    fi
+
+    # Extrair body para POST
+    REQUEST_BODY=$(jq -c ".routes[$i].request.body // null" "$CONTRACT_FILE")
 
     echo ""
     echo "Benchmarking route: $ROUTE_ID ($ROUTE_PATH)"
 
-    "$SCRIPT_DIR/benchmark.sh" "$ROUTE_ID" "http://localhost:8080${ROUTE_PATH}" "${TMP_DIR}/${ROUTE_ID}.json"
+    "$SCRIPT_DIR/benchmark.sh" "$ROUTE_ID" "http://localhost:8080${ROUTE_PATH}" "${TMP_DIR}/${ROUTE_ID}.json" "$ROUTE_METHOD" "$REQUEST_BODY"
 
     ROUTE_RESULT=$(cat "${TMP_DIR}/${ROUTE_ID}.json.parsed")
     RPS=$(echo "$ROUTE_RESULT" | jq '.requests_per_sec')
