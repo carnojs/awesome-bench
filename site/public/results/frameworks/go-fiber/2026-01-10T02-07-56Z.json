@@ -1,0 +1,36 @@
+{
+  "framework_id": "go-fiber",
+  "language": "go",
+  "framework": "fiber",
+  "url": "https://github.com/gofiber/fiber",
+  "measured_at": "2026-01-10T02:07:56Z",
+  "contract_version": 1,
+  "runner_version": "1.0.0",
+  "environment": {
+    "os": "Linux",
+    "ci": "true",
+    "oha_version": "oha 1.4.6"
+  },
+  "benchmarks": {
+    "plaintext": {
+      "duration_seconds": 6,
+      "requests_per_sec": 46922.92463390451,
+      "latency_ms": {
+        "p50": 1.015443,
+        "p95": 1.789442,
+        "p99": 2.353145
+      },
+      "errors": 0
+    },
+    "json": {
+      "duration_seconds": 6,
+      "requests_per_sec": 47511.57263690262,
+      "latency_ms": {
+        "p50": 1.020083,
+        "p95": 1.743379,
+        "p99": 2.22813
+      },
+      "errors": 0
+    }
+  }
+}
