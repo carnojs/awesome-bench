@@ -1,0 +1,128 @@
+name: Validate PR
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - "frameworks/**"
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      frameworks: ${{ steps.detect.outputs.frameworks }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed frameworks
+        id: detect
+        run: |
+          # Use origin/master as base to detect changes in the PR
+          git fetch origin master
+          CHANGED_FILES=$(git diff --name-only origin/master...HEAD -- 'frameworks/**')
+          
+          FRAMEWORKS=$(echo "$CHANGED_FILES" | grep -oP 'frameworks/[^/]+/[^/]+' | sort -u | while read fw; do
+            if [ -f "$fw/framework.json" ]; then
+              echo "$fw"
+            fi
+          done)
+
+          if [ -z "$FRAMEWORKS" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "frameworks=[]" >> $GITHUB_OUTPUT
+          else
+            JSON_ARRAY=$(echo "$FRAMEWORKS" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "frameworks=$JSON_ARRAY" >> $GITHUB_OUTPUT
+            echo "Changed frameworks: $JSON_ARRAY"
+          fi
+
+  validate:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Needed for commenting on PR
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: ${{ fromJson(needs.detect-changes.outputs.frameworks) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Validate framework.json structure
+        run: |
+          FW_JSON="${{ matrix.framework }}/framework.json"
+          echo "Validating $FW_JSON..."
+          if [ ! -f "$FW_JSON" ]; then
+            echo "::error::File $FW_JSON not found!"
+            exit 1
+          fi
+          
+          # Check required fields
+          MISSING_FIELDS=0
+          for field in id language framework; do
+            if [ "$(jq -r ".$field // empty" "$FW_JSON")" = "" ]; then
+               echo "::error::Field '$field' is missing in $FW_JSON"
+               MISSING_FIELDS=1
+            fi
+          done
+          
+          if [ $MISSING_FIELDS -eq 1 ]; then
+            exit 1
+          fi
+          echo "framework.json is valid."
+
+      - name: Build Framework
+        run: |
+          echo "Building ${{ matrix.framework }}..."
+          docker build -t framework-test ${{ matrix.framework }}
+
+      - name: Start Framework
+        run: |
+          echo "Starting container..."
+          docker run -d --rm --name framework-test -p 8080:8080 framework-test
+          
+          # Basic health check wait loop
+          echo "Waiting for port 8080..."
+          timeout 30 sh -c 'until curl -s http://localhost:8080/health > /dev/null; do sleep 1; done' || echo "Timed out waiting for server"
+          
+          echo "Container logs:"
+          docker logs framework-test
+
+      - name: Make scripts executable
+        run: chmod +x runner/*.sh
+
+      - name: Validate Contract
+        id: contract
+        run: ./runner/validate_contract.sh http://localhost:8080
+
+      - name: Comment on PR (Failure)
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const framework = "${{ matrix.framework }}";
+            const runUrl = "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}";
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `❌ **Validation Failed** for \`${framework}\`\n\nThe contract validation script returned an error. Check the [workflow logs](${runUrl}) for more details.`
+            });
+
+      - name: Cleanup
+        if: always()
+        run: docker stop framework-test || true
