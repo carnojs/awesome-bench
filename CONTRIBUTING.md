@@ -45,8 +45,8 @@ Your server must implement all routes defined in `benchmarks/contract.json`. Cur
 | Route | Method | Response | Content-Type |
 |-------|--------|----------|--------------|
 | `/health` | GET | Any (status 200) | Any |
-| `/plaintext` | GET | `OK` | `text/plain; charset=utf-8` |
-| `/json` | GET | `{"message":"OK"}` | `application/json; charset=utf-8` |
+| `/plaintext` | GET | `OK` | `text/plain` |
+| `/json` | GET | `{"message":"OK"}` | `application/json` |
 
 **Important:**
 - Server must listen on port **8080**
