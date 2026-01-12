@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-01-12T17:17:22.009Z",
+  "generated_at": "2026-01-12T17:19:52.143Z",
   "contract_version": 1,
   "frameworks": [
     {
       "id": "bun-carno",
       "language": "bun",
       "framework": "carno.js",
-      "measured_at": "2026-01-12T17:09:29Z",
+      "measured_at": "2026-01-12T17:18:57Z",
       "latest": "results/frameworks/bun-carno/latest.json"
     },
     {
