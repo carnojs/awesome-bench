@@ -9,4 +9,5 @@ RUN bun install --production
 COPY src/index.ts .
 
 EXPOSE 8080
+
 CMD ["bun", "run", "index.ts"]
