@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12T17:10:21.275Z",
+  "generated_at": "2026-01-12T17:17:22.009Z",
   "contract_version": 1,
   "frameworks": [
     {
@@ -27,7 +27,7 @@
       "id": "bun-http",
       "language": "bun",
       "framework": "Bun.serve",
-      "measured_at": "2026-01-10T12:50:50Z",
+      "measured_at": "2026-01-12T17:16:29Z",
       "latest": "results/frameworks/bun-http/latest.json"
     },
     {
