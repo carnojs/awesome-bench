@@ -26,8 +26,6 @@ All benchmarks are executed in a standardized environment to ensure fairness.
 | Parameter | Value |
 |-----------|-------|
 | **Duration** | 6 seconds per route |
-| **Connections** | 64 concurrent connections |
-| **Warmup** | 1 second |
 | **Tool** | [oha](https://github.com/hatoo/oha) (HTTP load generator) |
 | **Environment** | Linux Docker Containers (GitHub Actions) |
 
